@@ -1,0 +1,19 @@
+.lorenzoBadge {
+    position: absolute !important;
+    height: 900px !important;
+    width: 100vw !important;
+    z-index: 0 !important;
+    top: -100px;
+    right: -20vw;
+    overflow-x: hidden !important;
+}
+
+@media (max-width: 770px) {
+    .lorenzoBadge {
+        position: relative !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        top: 0 !important;
+        right: 0 !important;
+    }
+}
