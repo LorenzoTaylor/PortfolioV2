@@ -2,7 +2,7 @@ import { TextAnimate } from '@/registry/magicui/text-animate'
 
 export function Hero() {
   return (
-    <div className="relative z-10 flex flex-col gap-2 px-8 md:px-16 lg:px-24 select-none items-center text-center md:items-start md:text-left">
+    <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col gap-2 px-6 md:px-12 lg:px-24 select-none items-center text-center md:items-start md:text-left">
       <TextAnimate
         as="h1"
         animation="slideLeft"

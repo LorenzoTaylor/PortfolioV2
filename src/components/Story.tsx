@@ -76,7 +76,7 @@ function PhotoBento({ photos }: PhotoGridProps) {
       return (
         <div className="flex justify-start">
           <motion.div
-            className={`w-[52%] h-44 md:h-[22rem] rounded-xl overflow-hidden ${p.bg}`}
+            className={`w-[52%] h-[39vh] rounded-xl overflow-hidden ${p.bg}`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -89,7 +89,7 @@ function PhotoBento({ photos }: PhotoGridProps) {
     }
     return (
       <motion.div
-        className={`w-full h-28 md:h-88 rounded-xl overflow-hidden ${p.bg}`}
+        className={`w-full h-[39vh] rounded-xl overflow-hidden ${p.bg}`}
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
@@ -106,7 +106,7 @@ function PhotoBento({ photos }: PhotoGridProps) {
         {photos.map((p, i) => (
           <motion.div
             key={p.id}
-            className={`flex-1 h-28 md:h-88 rounded-xl overflow-hidden ${p.bg}`}
+            className={`flex-1 h-[39vh] rounded-xl overflow-hidden ${p.bg}`}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -121,7 +121,7 @@ function PhotoBento({ photos }: PhotoGridProps) {
 
   // 3 photos — left tall (vertical), right stacked (two)
   return (
-    <div className="flex w-full h-94 md:h-82" style={{ gap: '10px' }}>
+    <div className="flex w-full h-[45vh]" style={{ gap: '10px' }}>
       <motion.div
         className={`w-[48%] h-full min-h-50 rounded-xl overflow-hidden ${photos[0].bg}`}
         initial={{ opacity: 0, y: 14 }}

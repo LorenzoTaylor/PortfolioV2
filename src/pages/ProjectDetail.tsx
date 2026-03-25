@@ -51,6 +51,8 @@ export function ProjectDetail() {
             {project.repo && (
               <a
                 href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:border-zinc-400 dark:hover:border-zinc-500 transition-all"
               >
                 <svg viewBox="0 0 438.549 438.549" className="w-3.5 h-3.5" fill="currentColor">
@@ -62,6 +64,8 @@ export function ProjectDetail() {
             {project.href && project.href !== '#' && (
               <a
                 href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-xs font-mono text-zinc-100 dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-all"
               >
                 <ExternalLinkIcon size={12} />
