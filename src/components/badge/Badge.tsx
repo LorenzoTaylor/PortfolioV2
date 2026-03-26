@@ -52,6 +52,13 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     }
   }, [hovered, dragged])
 
+  useEffect(() => {
+    if (dragged) {
+      document.body.style.overflow = 'hidden'
+      return () => { document.body.style.overflow = '' }
+    }
+  }, [dragged])
+
   useFrame((state, delta) => {
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)

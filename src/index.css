@@ -28,3 +28,12 @@ body {
 @utility animate-marquee-vertical {
   animation: marquee-vertical var(--duration) linear infinite;
 }
+
+@property --shine-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes shine-rotate {
+  to { --shine-angle: 360deg; }
+}

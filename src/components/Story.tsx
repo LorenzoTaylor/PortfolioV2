@@ -1,5 +1,6 @@
 import { useRef, useMemo, useState, useEffect, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValueEvent } from 'motion/react'
+import { ChevronDown } from 'lucide-react'
 import { DottedMapSVG } from '@/components/ui/dotted-map'
 import jamaica1 from '@/assets/jamaica1.png'
 import jamaica2 from '@/assets/jamaica2.png'
@@ -149,15 +150,60 @@ function PhotoBento({ photos }: PhotoGridProps) {
   )
 }
 
+// ─── ScrollDownBadge ──────────────────────────────────────────────────────────
+
+function ScrollDownBadge() {
+  return (
+    <div
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono text-zinc-400 dark:text-zinc-500 select-none"
+      style={{
+        background: 'linear-gradient(#fafafa, #fafafa) padding-box, conic-gradient(from var(--shine-angle), transparent 20%, rgba(160,160,160,0.6) 40%, transparent 60%) border-box',
+        border: '1px solid transparent',
+        animation: 'shine-rotate 2.5s linear infinite',
+      }}
+    >
+      scroll down
+      <ChevronDown size={10} />
+    </div>
+  )
+}
+
+// dark version override — swap bg colour
+function ScrollDownBadgeDark() {
+  return (
+    <div
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono text-zinc-500 select-none"
+      style={{
+        background: 'linear-gradient(#09090b, #09090b) padding-box, conic-gradient(from var(--shine-angle), transparent 20%, rgba(161,161,170,0.7) 40%, transparent 60%) border-box',
+        border: '1px solid transparent',
+        animation: 'shine-rotate 2.5s linear infinite',
+      }}
+    >
+      scroll down
+      <ChevronDown size={10} />
+    </div>
+  )
+}
+
+function ShineBadge() {
+  return (
+    <>
+      <span className="dark:hidden"><ScrollDownBadge /></span>
+      <span className="hidden dark:inline-flex"><ScrollDownBadgeDark /></span>
+    </>
+  )
+}
+
 // ─── ChapterPanel ─────────────────────────────────────────────────────────────
 
 interface ChapterPanelProps {
   chapter: (typeof CHAPTERS)[number]
   index: number
+  isFirst?: boolean
   mobile?: boolean
 }
 
-function ChapterPanel({ chapter, index, mobile }: ChapterPanelProps) {
+function ChapterPanel({ chapter, index, isFirst, mobile }: ChapterPanelProps) {
   return (
     <motion.div
       key={chapter.id}
@@ -171,9 +217,12 @@ function ChapterPanel({ chapter, index, mobile }: ChapterPanelProps) {
         {String(index + 1).padStart(2, '0')} / {String(CHAPTERS.length).padStart(2, '0')}
       </p>
 
-      <h2 className={`font-bold text-zinc-900 dark:text-zinc-50 leading-tight ${mobile ? 'text-lg mb-0.5' : 'text-2xl lg:text-[28px]'}`}>
-        {chapter.title}
-      </h2>
+      <div className="flex items-center justify-between gap-2">
+        <h2 className={`font-bold text-zinc-900 dark:text-zinc-50 leading-tight ${mobile ? 'text-lg mb-0.5' : 'text-2xl lg:text-[28px]'}`}>
+          {chapter.title}
+        </h2>
+        {isFirst && !mobile && <ShineBadge />}
+      </div>
       <p className={`font-medium text-zinc-400 dark:text-zinc-500 ${mobile ? 'text-sm mb-2' : 'text-base mb-5'}`}>
         {chapter.subtitle}
       </p>
@@ -358,21 +407,28 @@ export function Story() {
                 key={CHAPTERS[activeChapter].id}
                 chapter={CHAPTERS[activeChapter]}
                 index={activeChapter}
+                isFirst={activeChapter === 0}
                 mobile
               />
             </AnimatePresence>
             {/* Chapter dots */}
             <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5">
               {CHAPTERS.map((_, i) => (
-                <div
+                <button
                   key={i}
-                  className="w-1 h-1 rounded-full transition-all duration-300"
-                  style={{
-                    background: 'currentColor',
-                    opacity: activeChapter === i ? 1 : 0.2,
-                    transform: `scale(${activeChapter === i ? 1.5 : 1})`,
-                  }}
-                />
+                  onClick={() => scrollToSnap(i)}
+                  className="w-4 h-4 flex items-center justify-center cursor-pointer"
+                  aria-label={`Go to chapter ${i + 1}`}
+                >
+                  <div
+                    className="w-1 h-1 rounded-full transition-all duration-300"
+                    style={{
+                      background: 'currentColor',
+                      opacity: activeChapter === i ? 1 : 0.2,
+                      transform: `scale(${activeChapter === i ? 1.5 : 1})`,
+                    }}
+                  />
+                </button>
               ))}
             </div>
           </div>
@@ -409,19 +465,26 @@ export function Story() {
                 key={CHAPTERS[activeChapter].id}
                 chapter={CHAPTERS[activeChapter]}
                 index={activeChapter}
+                isFirst={activeChapter === 0}
               />
             </AnimatePresence>
             <div className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3">
               {CHAPTERS.map((_, i) => (
-                <div
+                <button
                   key={i}
-                  className="w-1.5 h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    background: 'currentColor',
-                    opacity: activeChapter === i ? 1 : 0.2,
-                    transform: `scale(${activeChapter === i ? 1.4 : 1})`,
-                  }}
-                />
+                  onClick={() => scrollToSnap(i)}
+                  className="w-5 h-5 flex items-center justify-center cursor-pointer"
+                  aria-label={`Go to chapter ${i + 1}`}
+                >
+                  <div
+                    className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      background: 'currentColor',
+                      opacity: activeChapter === i ? 1 : 0.2,
+                      transform: `scale(${activeChapter === i ? 1.4 : 1})`,
+                    }}
+                  />
+                </button>
               ))}
             </div>
           </div>
