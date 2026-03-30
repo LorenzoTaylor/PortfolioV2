@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { TerminalLoader } from '@/components/ui/TerminalLoader'
 import Badge from '@/components/badge/Badge'
@@ -65,6 +66,7 @@ function App() {
         <Route path="/" element={<Portfolio />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
       </Routes>
+      <Analytics />
     </>
   )
 }
